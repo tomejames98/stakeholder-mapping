@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stakeholder Mapping Worksheet</title>
+<style>
+  :root{
+    --sweet-brown:#B13030;
+    --urobilin:#E6AA1E;
+    --chinese-bronze:#D28232;
+    --asparagus:#98A06A;
+    --moonstone:#78BEC8;
+    --weldon:#8096B4;
+    --ink:#1a1a1a;
+    --muted:#5c5c5c;
+    --line:#d9d9d9;
+    --surface:#ffffff;
+    --tint:#f6f4f1;
+    --radius-sm:4px;
+    --radius-md:6px;
+    --radius-lg:12px;
+    --font:Arial, Helvetica, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font);
+    color:var(--ink);
+    background:#eceae6;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:1240px;
+    margin:0 auto;
+    padding:32px 28px 80px;
+  }
+  header.page{
+    border-bottom:3px solid var(--sweet-brown);
+    padding-bottom:16px;
+    margin-bottom:22px;
+  }
+  h1{
+    font-size:30px;
+    color:var(--sweet-brown);
+    margin:0 0 6px;
+    font-weight:bold;
+  }
+  .sub{color:var(--muted);font-size:15px;margin:0;}
+  .intro{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:16px 18px;
+    margin:0 0 22px;
+    font-size:14px;
+  }
+  .intro p{margin:0 0 8px;}
+  .intro p:last-child{margin-bottom:0;}
+  .intro strong{color:var(--sweet-brown);}
+  h2{
+    font-size:20px;
+    color:var(--sweet-brown);
+    margin:30px 0 12px;
+    font-weight:bold;
+  }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:6px;
+    overflow-x:auto;
+  }
+  table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:1080px;
+    font-size:13px;
+  }
+  thead th{
+    background:var(--weldon);
+    color:#fff;
+    text-align:left;
+    padding:10px 10px;
+    font-weight:bold;
+    vertical-align:top;
+    border:1px solid #6d82a0;
+  }
+  thead th .hint{
+    display:block;
+    font-weight:normal;
+    font-size:11px;
+    color:#eef1f6;
+    margin-top:3px;
+    line-height:1.35;
+  }
+  tbody td{
+    border:1px solid var(--line);
+    padding:7px 8px;
+    vertical-align:top;
+  }
+  tbody tr:nth-child(even) td{background:#faf9f7;}
+  .col-name{width:12%;min-width:120px;}
+  .col-care{width:23%;min-width:200px;}
+  .col-rate{width:9%;min-width:96px;}
+  .col-source{width:20%;min-width:180px;}
+  .col-act{width:34px;}
+  input[type=text],textarea,select{
+    width:100%;
+    font-family:var(--font);
+    font-size:13px;
+    color:var(--ink);
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    padding:6px 7px;
+    background:#fff;
+  }
+  textarea{resize:vertical;min-height:52px;line-height:1.4;}
+  input[type=text].name{font-weight:bold;}
+  select{cursor:pointer;background:#fff;}
+  input:focus,textarea:focus,select:focus{
+    outline:none;
+    border-color:var(--sweet-brown);
+    box-shadow:0 0 0 2px rgba(177,48,48,0.12);
+  }
+  .rowbtn{
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--muted);
+    width:26px;height:26px;
+    border-radius:var(--radius-sm);
+    cursor:pointer;
+    font-size:15px;
+    line-height:1;
+  }
+  .rowbtn:hover{border-color:var(--sweet-brown);color:var(--sweet-brown);}
+  .toolbar{
+    display:flex;flex-wrap:wrap;gap:10px;
+    margin:14px 0 0;
+  }
+  button.btn{
+    font-family:var(--font);
+    font-size:13px;
+    font-weight:bold;
+    padding:9px 16px;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--sweet-brown);
+    cursor:pointer;
+  }
+  .btn.primary{background:var(--sweet-brown);color:#fff;}
+  .btn.primary:hover{background:#992929;}
+  .btn.ghost{background:#fff;color:var(--sweet-brown);}
+  .btn.ghost:hover{background:#faf1f1;}
+  .btn.plain{border-color:var(--line);color:var(--muted);background:#fff;}
+  .btn.plain:hover{border-color:var(--muted);}
+
+  /* Matrix */
+  .matrix-layout{
+    display:grid;
+    grid-template-columns:minmax(0,1.35fr) minmax(240px,1fr);
+    gap:24px;
+    align-items:start;
+  }
+  @media (max-width:900px){.matrix-layout{grid-template-columns:1fr;}}
+  .matrix-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:18px;
+  }
+  svg.matrix{width:100%;height:auto;display:block;}
+  .legend{font-size:12.5px;color:var(--muted);}
+  .legend h3{font-size:14px;color:var(--sweet-brown);margin:0 0 8px;}
+  .legend .grp{margin-bottom:16px;}
+  .swatch{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px;}
+  .legend ul{list-style:none;margin:6px 0 0;padding:0;}
+  .legend li{margin:4px 0;}
+  .quad-key{font-size:11.5px;line-height:1.45;}
+  .quad-key b{color:var(--ink);}
+  .priority{
+    margin-top:16px;
+    background:var(--tint);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:14px 16px;
+  }
+  .priority h3{margin:0 0 8px;font-size:15px;color:var(--sweet-brown);}
+  .priority .empty{font-size:13px;color:var(--muted);margin:0;}
+  .chip{
+    display:inline-block;
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:4px solid var(--sweet-brown);
+    border-radius:var(--radius-sm);
+    padding:6px 10px;
+    margin:4px 6px 0 0;
+    font-size:12.5px;
+  }
+  .chip .rel{color:var(--muted);font-size:11px;display:block;}
+  .foot{margin-top:34px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;}
+  .dotlabel{font-size:11px;font-family:var(--font);fill:var(--ink);font-weight:bold;}
+  .quadlabel{font-size:14px;font-family:var(--font);fill:#8a8a8a;font-weight:bold;}
+  .axislabel{font-size:13px;font-family:var(--font);fill:var(--sweet-brown);font-weight:bold;}
+  .axisend{font-size:15px;font-family:var(--font);fill:#555;font-weight:bold;}
+
+  @media print{
+    body{background:#fff;}
+    .no-print{display:none !important;}
+    .wrap{max-width:100%;padding:0;}
+    .card,.matrix-card,.priority,.intro{border-color:#bbb;}
+    .matrix-layout{grid-template-columns:1fr;}
+    table{min-width:0;font-size:11px;}
+    textarea{min-height:0;}
+    @page{size:landscape;margin:12mm;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="page">
+    <h1>Stakeholder Mapping</h1>
+    <p class="sub">Map your key stakeholders, then see them land on the power&ndash;interest matrix.</p>
+  </header>
+
+  <div class="intro">
+    <p>Fill a row for each stakeholder. Work down the table &mdash; the guiding question under each column heading is there to prompt your thinking. As soon as you set a stakeholder&rsquo;s <strong>Interest</strong> and <strong>Influence</strong>, they appear on the live matrix below, coloured by how strong your relationship with them is.</p>
+    <p>A note on the two rating columns the printed table doesn&rsquo;t separate out: <strong>Interest</strong> is how much they care about and engage with <em>your</em> work; <strong>Influence</strong> is how much power they hold over your work and its outcomes. The matrix needs both, so they&rsquo;re their own columns here.</p>
+  </div>
+
+  <h2>Who are your key stakeholders?</h2>
+  <div class="card">
+    <table id="tbl">
+      <thead>
+        <tr>
+          <th class="col-name">Stakeholder</th>
+          <th class="col-care">What do they care about?<span class="hint">Their goals, pressures, what success looks like for them.</span></th>
+          <th class="col-rate">Interest in your work<span class="hint">How much do they care about / engage with what you do?</span></th>
+          <th class="col-rate">Influence they have<span class="hint">How much power over your work &amp; outcomes?</span></th>
+          <th class="col-rate">Relationship strength<span class="hint">How strong is your relationship today?</span></th>
+          <th class="col-source">Primary source of influence<span class="hint">Position, budget, expertise, networks, relationships&hellip;</span></th>
+          <th class="col-act no-print"></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <div class="toolbar no-print">
+    <button class="btn ghost" id="addRow">+ Add stakeholder</button>
+    <button class="btn primary" id="printBtn">Print / Save as PDF</button>
+    <button class="btn plain" id="downloadBtn">Download my filled copy</button>
+  </div>
+
+  <h2>Power&ndash;interest matrix</h2>
+  <div class="matrix-layout">
+    <div class="matrix-card">
+      <svg class="matrix" viewBox="0 0 660 600" role="img" aria-label="Power-interest matrix">
+        <!-- quadrant fills (light tints of palette) -->
+        <rect x="90" y="30" width="255" height="255" fill="#8096B4" opacity="0.10"></rect>
+        <rect x="345" y="30" width="255" height="255" fill="#B13030" opacity="0.09"></rect>
+        <rect x="90" y="285" width="255" height="255" fill="#98A06A" opacity="0.10"></rect>
+        <rect x="345" y="285" width="255" height="255" fill="#78BEC8" opacity="0.12"></rect>
+        <!-- grid frame -->
+        <rect x="90" y="30" width="510" height="510" fill="none" stroke="#c9c9c9" stroke-width="1.5"></rect>
+        <line x1="345" y1="30" x2="345" y2="540" stroke="#c9c9c9" stroke-width="1.5"></line>
+        <line x1="90" y1="285" x2="600" y2="285" stroke="#c9c9c9" stroke-width="1.5"></line>
+        <!-- quadrant labels -->
+        <text class="quadlabel" x="217" y="163" text-anchor="middle">Keep satisfied</text>
+        <text class="quadlabel" x="472" y="163" text-anchor="middle">Manage closely</text>
+        <text class="quadlabel" x="217" y="418" text-anchor="middle">Monitor</text>
+        <text class="quadlabel" x="472" y="418" text-anchor="middle">Keep informed</text>
+        <!-- axes labels -->
+        <text class="axislabel" x="28" y="285" text-anchor="middle" transform="rotate(-90 28 285)">Influence of stakeholder</text>
+        <text class="axislabel" x="345" y="580" text-anchor="middle">Interest of stakeholder</text>
+        <text class="axisend" x="70" y="40">+</text>
+        <text class="axisend" x="70" y="540">&ndash;</text>
+        <text class="axisend" x="92" y="565">&ndash;</text>
+        <text class="axisend" x="600" y="565">+</text>
+        <!-- dots injected here -->
+        <g id="dots"></g>
+      </svg>
+    </div>
+    <div>
+      <div class="legend">
+        <div class="grp">
+          <h3>Dot colour = relationship</h3>
+          <ul>
+            <li><span class="swatch" style="background:#98A06A"></span>Strong &mdash; well established</li>
+            <li><span class="swatch" style="background:#E6AA1E"></span>Developing &mdash; some way to go</li>
+            <li><span class="swatch" style="background:#B13030"></span>Needs work &mdash; weak or new</li>
+          </ul>
+        </div>
+        <div class="grp quad-key">
+          <b>Manage closely</b> (high influence, interested): fully engage; help deliver their outcomes.<br>
+          <b>Keep satisfied</b> (high influence, less interested): do enough to keep them onside, not so much they&rsquo;re bored.<br>
+          <b>Keep informed</b> (low influence, interested): keep them in the loop; they can be useful on detail.<br>
+          <b>Monitor</b> (low influence, less interested): light touch, don&rsquo;t over-communicate.
+        </div>
+      </div>
+      <div class="priority">
+        <h3>Priority relationships to build</h3>
+        <div id="priorityBody"><p class="empty">High-influence stakeholders whose relationship isn&rsquo;t yet strong will appear here as you fill the table.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">Dot position is set by Interest (across) and Influence (up); colour shows relationship strength. Position uses three bands (Low / Med / High) with a small offset so overlapping stakeholders stay readable. Your entries live only in this page &mdash; use &ldquo;Download my filled copy&rdquo; or &ldquo;Print / Save as PDF&rdquo; to keep them.</p>
+</div>
+
+<script>
+(function(){
+  var DEFAULTS = ["Manager","Senior Leadership","Team Members","Other Peers","Grantees"];
+  var RATE3 = ["","High","Med","Low"];
+  var REL = ["","Strong","Developing","Needs work"];
+  var REL_COLOR = {"Strong":"#98A06A","Developing":"#E6AA1E","Needs work":"#B13030"};
+  var BAND = {"High":0.80,"Med":0.50,"Low":0.20};
+
+  var rowsEl = document.getElementById("rows");
+
+  function opt(list, val){
+    return list.map(function(o){
+      var label = o===""? "—" : o;
+      var sel = o===val ? " selected" : "";
+      return '<option value="'+o+'"'+sel+'>'+label+'</option>';
+    }).join("");
+  }
+
+  function makeRow(name){
+    var tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td class="col-name"><input type="text" class="name" value="'+(name||"").replace(/"/g,'&quot;')+'" placeholder="Name / role"></td>'+
+      '<td class="col-care"><textarea placeholder="What matters to them?"></textarea></td>'+
+      '<td class="col-rate"><select data-k="interest">'+opt(RATE3,"")+'</select></td>'+
+      '<td class="col-rate"><select data-k="influence">'+opt(RATE3,"")+'</select></td>'+
+      '<td class="col-rate"><select data-k="rel">'+opt(REL,"")+'</select></td>'+
+      '<td class="col-source"><textarea placeholder="Where their influence comes from"></textarea></td>'+
+      '<td class="col-act no-print"><button class="rowbtn remove" title="Remove row" aria-label="Remove row">&times;</button></td>';
+    return tr;
+  }
+
+  function seedIfEmpty(){
+    if(rowsEl.children.length>0) return; // baked/reloaded copy already has rows
+    DEFAULTS.forEach(function(n){ rowsEl.appendChild(makeRow(n)); });
+  }
+
+  // ---- matrix rendering ----
+  var dotsG = document.getElementById("dots");
+  var X0=90, Y0=30, W=510, H=510;
+
+  function collect(){
+    var out=[];
+    Array.prototype.forEach.call(rowsEl.children, function(tr){
+      var name=(tr.querySelector("input.name").value||"").trim();
+      var interest=tr.querySelector('select[data-k=interest]').value;
+      var influence=tr.querySelector('select[data-k=influence]').value;
+      var rel=tr.querySelector('select[data-k=rel]').value;
+      if(interest && influence){
+        out.push({name:name||"(unnamed)", interest:interest, influence:influence, rel:rel});
+      }
+    });
+    return out;
+  }
+
+  function svgEl(tag,attrs){
+    var e=document.createElementNS("http://www.w3.org/2000/svg",tag);
+    for(var k in attrs){ e.setAttribute(k,attrs[k]); }
+    return e;
+  }
+
+  function render(){
+    var pts=collect();
+    // bucket for jitter
+    var buckets={};
+    pts.forEach(function(p){
+      var key=p.interest+"|"+p.influence;
+      (buckets[key]=buckets[key]||[]).push(p);
+    });
+    while(dotsG.firstChild) dotsG.removeChild(dotsG.firstChild);
+
+    Object.keys(buckets).forEach(function(key){
+      var group=buckets[key];
+      var n=group.length;
+      group.forEach(function(p,i){
+        var bx=BAND[p.interest], by=BAND[p.influence];
+        var cx=X0 + bx*W;
+        var cy=Y0 + (1-by)*H; // influence up
+        if(n>1){
+          var ang=(2*Math.PI*i)/n;
+          var r=Math.min(20+ n*3, 40);
+          cx+=Math.cos(ang)*r;
+          cy+=Math.sin(ang)*r;
+        }
+        var color=REL_COLOR[p.rel]||"#8a8a8a";
+        var g=svgEl("g",{});
+        var title=svgEl("title",{});
+        title.textContent=p.name+"  —  Interest: "+p.interest+", Influence: "+p.influence+(p.rel?(", Relationship: "+p.rel):"");
+        g.appendChild(title);
+        g.appendChild(svgEl("circle",{cx:cx,cy:cy,r:11,fill:color,stroke:"#ffffff","stroke-width":2}));
+        var t=svgEl("text",{x:cx+15,y:cy+4,"class":"dotlabel"});
+        t.textContent=p.name;
+        g.appendChild(t);
+        dotsG.appendChild(g);
+      });
+    });
+    renderPriority(pts);
+  }
+
+  function renderPriority(pts){
+    var body=document.getElementById("priorityBody");
+    // high influence + relationship not strong (and set). Manage-closely (also high interest) first.
+    var pri=pts.filter(function(p){ return p.influence==="High" && p.rel && p.rel!=="Strong"; });
+    pri.sort(function(a,b){
+      var am=(a.interest==="High")?0:1, bm=(b.interest==="High")?0:1;
+      if(am!==bm) return am-bm;
+      var order={"Needs work":0,"Developing":1};
+      var ao=(a.rel in order)?order[a.rel]:9;
+      var bo=(b.rel in order)?order[b.rel]:9;
+      return ao-bo;
+    });
+    if(pri.length===0){
+      body.innerHTML='<p class="empty">High-influence stakeholders whose relationship isn’t yet strong will appear here as you fill the table.</p>';
+      return;
+    }
+    body.innerHTML=pri.map(function(p){
+      var quad=(p.interest==="High")?"Manage closely":"Keep satisfied";
+      return '<span class="chip">'+escapeHtml(p.name)+'<span class="rel">'+p.rel+" · "+quad+'</span></span>';
+    }).join("");
+  }
+
+  function escapeHtml(s){return (s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+
+  // ---- events (delegated) ----
+  rowsEl.addEventListener("input", render);
+  rowsEl.addEventListener("change", render);
+  rowsEl.addEventListener("click", function(e){
+    if(e.target.classList.contains("remove")){
+      var tr=e.target.closest("tr");
+      if(tr) tr.parentNode.removeChild(tr);
+      render();
+    }
+  });
+  document.getElementById("addRow").addEventListener("click", function(){
+    rowsEl.appendChild(makeRow(""));
+  });
+  document.getElementById("printBtn").addEventListener("click", function(){ window.print(); });
+
+  // ---- download a filled, self-contained copy (no localStorage) ----
+  document.getElementById("downloadBtn").addEventListener("click", function(){
+    // bake current values into the DOM as attributes so a reopened copy shows them
+    Array.prototype.forEach.call(document.querySelectorAll("input[type=text]"),function(el){
+      el.setAttribute("value", el.value);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("textarea"),function(el){
+      el.textContent = el.value;
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("select"),function(el){
+      Array.prototype.forEach.call(el.options,function(o){
+        if(o.selected) o.setAttribute("selected","selected"); else o.removeAttribute("selected");
+      });
+    });
+    var html="<!DOCTYPE html>\n"+document.documentElement.outerHTML;
+    var blob=new Blob([html],{type:"text/html"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url; a.download="stakeholder-mapping-filled.html";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1500);
+  });
+
+  seedIfEmpty();
+  render();
+})();
+</script>
+</body>
+</html>
